@@ -19,7 +19,7 @@ import com.easylearnz.gateway.model.TransactionMessage;
 public class KafkaProducerConfig {
 
     @Bean
-    public ProducerFactory<UUID, TransactionMessage> producerFactory() {
+    ProducerFactory<UUID, TransactionMessage> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, UUIDSerializer.class);
@@ -28,7 +28,8 @@ public class KafkaProducerConfig {
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
-    public KafkaTemplate<UUID, TransactionMessage> kafkaTemplate() {
+    @Bean
+    KafkaTemplate<UUID, TransactionMessage> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
